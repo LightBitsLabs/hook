@@ -97,6 +97,29 @@ services:
 #dbg  - name: sshd
 #dbg    image: linuxkit/sshd:666b4a1a323140aa1f332826164afba506abf597
 
+
+  - name: hwinfo
+    image: docker.lightbitslabs.com/lb-dev-playground/hwinfo:latest
+    mounts:
+    - type: cgroup
+      options: ["rw", "nosuid", "noexec", "nodev", "relatime"]
+    capabilities:
+    - all
+    net: host
+    pid: host
+    devices:
+    - path: all
+      type: a
+    # all block devices
+    - path: all
+      type: b
+    binds:
+    - /dev/console:/dev/console
+    - /dev:/dev
+    - /proc:/proc
+    - /etc/resolv.conf:/etc/resolv.conf
+    - /lib/firmware/:/lib/firmware/
+
 files:
   - path: etc/profile.d/local.sh
     contents: |
