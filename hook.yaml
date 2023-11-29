@@ -29,6 +29,7 @@ services:
       - /etc/profile.d/local.sh:/etc/profile.d/local.sh
       - /etc/motd:/etc/motd
       - /etc/os-release:/etc/os-release
+      - /lib/firmware/:/lib/firmware/
     env:
       - INSECURE=true
 
@@ -43,6 +44,7 @@ services:
       - /run:/run
       - /etc/ip/dhcp.sh:/etc/ip/dhcp.sh
       - /dhcpcd.conf:/dhcpcd.conf
+      - /lib/firmware/:/lib/firmware/
     runtime:
       mkdir:
         - /var/lib/dhcpcd
@@ -51,6 +53,7 @@ services:
     image: linuxkit/openntpd:d6c36ac367ed26a6eeffd8db78334d9f8041b038
     binds:
       - /var/run:/var/run
+      - /lib/firmware/:/lib/firmware/
 
   - name: hook-docker
     image: quay.io/tinkerbell/hook-docker:latest
@@ -66,6 +69,7 @@ services:
       - /dev:/dev
       - /etc/resolv.conf:/etc/resolv.conf
       - /lib/modules:/lib/modules
+      - /lib/firmware/:/lib/firmware/
       - /var/run/docker:/var/run
       - /var/run/images:/var/lib/docker
       - /var/run/worker:/worker
@@ -85,6 +89,7 @@ services:
         options: ["rw", "nosuid", "noexec", "nodev", "relatime"]
     binds:
       - /var/run/docker:/var/run
+      - /lib/firmware/:/lib/firmware/
     runtime:
       mkdir:
         - /var/run/docker
@@ -139,6 +144,10 @@ files:
 
   - path: dhcpcd.conf
     source: "files/dhcpcd.conf"
+    mode: "0644"
+
+  - path: lib/firmware/bnx2x/bnx2x-e2-7.13.15.0.fw
+    source: "files/bnx2x/bnx2x-e2-7.13.15.0.fw"
     mode: "0644"
 
 #dbg  - path: root/.ssh/authorized_keys
