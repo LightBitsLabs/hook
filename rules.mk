@@ -22,7 +22,7 @@ ifeq ($(ARCH),aarch64)
 ARCH = arm64
 endif
 
-arches := amd64 arm64
+arches := amd64 amd64 # arm64
 modes := rel dbg
 
 hook-bootkit-deps := $(wildcard hook-bootkit/*)
@@ -90,7 +90,7 @@ push-hook-bootkit push-hook-docker:
 	docker buildx build --platform $$platforms --push -t $(ORG)/$(container):$T $(container)
 
 .PHONY: dist
-dist: out/$T/rel/amd64/hook.tar out/$T/rel/arm64/hook.tar ## Build tarballs for distribution
+dist: out/$T/rel/amd64/hook.tar #  out/$T/rel/arm64/hook.tar ## Build tarballs for distribution
 dbg-dist: out/$T/dbg/$(ARCH)/hook.tar ## Build debug enabled tarball
 dist dbg-dist:
 	for f in $^; do
