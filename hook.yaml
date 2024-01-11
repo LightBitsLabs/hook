@@ -1,5 +1,6 @@
 kernel:
-  image: quay.io/tinkerbell/hook-kernel:5.10.85-12710529685cd674e27fce26ae23f705638e55d1
+  #image: quay.io/tinkerbell/hook-kernel:5.10.85-12710529685cd674e27fce26ae23f705638e55d1
+  image: docker.lightbitslabs.com/lb-dev-playground/hook-kernel:5.10.85-e7ff17ea8cb11195c7dfb96c890ef3f8f642381d
   cmdline: "console=tty0 console=ttyS0 console=ttyAMA0 console=ttysclp0"
 
 init:
