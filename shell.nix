@@ -28,5 +28,7 @@ in mkShell {
     shfmt
     util-linux
     curl
+    vim
+    tree
   ];
 }
