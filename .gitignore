@@ -8,3 +8,6 @@ hook-*
 hook*.*.yaml
 out/
 *.swp
+
+
+hwinfo/hwinfo/__pycache__
