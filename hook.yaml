@@ -179,7 +179,7 @@ files:
     mode: "0644"
 
 #dbg  - path: root/.ssh/authorized_keys
-#dbg    source: ~/.ssh/id_rsa.pub
+#dbg    source: ./allowed_hosts_rsa_keys/authorized_keys
 #dbg    mode: "0600"
 #dbg    optional: true
 
