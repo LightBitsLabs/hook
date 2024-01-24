@@ -23,6 +23,15 @@ onboot:
       - /etc/ip/vlan.sh:/etc/ip/vlan.sh
     command: ["/etc/ip/vlan.sh"]
 
+  # try to get an ip from dhcp before we try to access the network.
+  - name: dhcpcd
+    image: linuxkit/dhcpcd:52d2c4df0311b182e99241cdc382ff726755c450
+    command: ["/sbin/dhcpcd", "--nobackground", "-f", "/dhcpcd.conf", "-1"]
+    binds.add:
+    - /lib/firmware/:/lib/firmware/
+    - /dhcpcd.conf:/dhcpcd.conf
+    - /run:/run
+
 services:
   - name: getty
     image: linuxkit/getty:76951a596aa5e0867a38e28f0b94d620e948e3e8
