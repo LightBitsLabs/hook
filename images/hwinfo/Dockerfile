@@ -1,7 +1,7 @@
-FROM python:3.11-alpine
+FROM python:3.13.2-alpine3.20
 
 RUN apk update && \
-    apk add --no-cache fio nvme-cli util-linux lshw numactl-tools ndctl vim mdevd && \
+    apk add --no-cache fio nvme-cli util-linux lshw numactl-tools ndctl vim mdevd pciutils ethtool && \
     apk add sedutil --no-cache --repository=https://dl-cdn.alpinelinux.org/alpine/edge/testing
 #RUN apt update -y && \
 #    apt install -y \

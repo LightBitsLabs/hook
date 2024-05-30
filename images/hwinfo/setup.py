@@ -10,6 +10,8 @@ setup(
     packages=find_packages(include=['hwinfo', 'hwinfo.*']),
     install_requires=[
         'requests',
+	'packaging',
+	'retry'
     ],
     extras_require={},
     setup_requires=['pytest-runner', 'flake8'],

@@ -51,6 +51,8 @@ def get_nvme_list(selftest_url=None):
     """
     try:
         run_cmd("mdev -s")
+        nvme_cli_version = run_cmd("nvme --version")
+        logging.info(f"nvme-cli version: {nvme_cli_version}")
         r = run_cmd("nvme list -o json")
         nvme_list = json.loads(r)
         sed_obj = Sed(nvme_list, selftest_url)

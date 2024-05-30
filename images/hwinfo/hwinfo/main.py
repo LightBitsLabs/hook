@@ -5,7 +5,9 @@ import logging
 import requests
 import time
 import urllib3.exceptions
+from hwinfo import obj_to_json
 from hwinfo import hwinfo
+from hwinfo.network_info import assign_data_ip
 
 cmdline_path = "/proc/cmdline"
 
@@ -74,7 +76,7 @@ def read_config_from_cmdline() -> Config:
 def main():
     basic_logging_config()
     
-    logging.info("starting to run inside hwinfo")
+    logging.info("starting to run inside hwinfo: v0.1.0")
     logging.info(os.system("lsblk"))
     logging.info(os.system("df -h"))
     # os.system(f"echo 'SELF_TEST_BASE_URL=http://labgw:50007 MAC=0c:c4:7a:85:7d:d6 IP=192.168.16.174 ID=rack02-server75' > {cmdline_path}")
@@ -87,6 +89,11 @@ def main():
             logging.info(f"update config[{k}]: with {v}")
             config[k] = v
     config.verify()
+
+    try:
+        assign_data_ip()
+    except Exception as e:
+        logging.error(f"error: {e}")
 
     tries = 0
     while tries < 10:

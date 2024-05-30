@@ -1,5 +1,5 @@
-
-IMG=lbdocker:5000/hwinfo:latest
+REGISTRY := $(or $(REGISTRY),lbdocker:5000)
+IMG=$(REGISTRY)/hwinfo:latest
 
 build-image:
 	docker build -t ${IMG} .
