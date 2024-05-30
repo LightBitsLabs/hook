@@ -5,7 +5,9 @@ import logging
 import requests
 import time
 import urllib3.exceptions
+from hwinfo import obj_to_json
 from hwinfo import hwinfo
+from hwinfo.network_info import assign_data_ip
 
 cmdline_path = "/proc/cmdline"
 
@@ -87,6 +89,11 @@ def main():
             logging.info(f"update config[{k}]: with {v}")
             config[k] = v
     config.verify()
+
+    try:
+        assign_data_ip()
+    except Exception as e:
+        logging.error(f"error: {e}")
 
     tries = 0
     while tries < 10:
