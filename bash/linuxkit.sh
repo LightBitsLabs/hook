@@ -74,6 +74,11 @@ function linuxkit_build() {
 			envsubst '$HOOK_VERSION $HOOK_KERNEL_IMAGE $HOOK_KERNEL_ID $HOOK_KERNEL_VERSION $HOOK_CONTAINER_IP_IMAGE $HOOK_CONTAINER_BOOTKIT_IMAGE $HOOK_CONTAINER_DOCKER_IMAGE $HOOK_CONTAINER_MDEV_IMAGE $HOOK_CONTAINER_CONTAINERD_IMAGE $HOOK_CONTAINER_RUNC_IMAGE $HOOK_CONTAINER_EMBEDDED_IMAGE' \
 			> "hook.${inventory_id}.yaml"
 
+	if [[ "$1" == "debug" ]]; then
+		log info "Building hook in debug mode, enabling ssh"
+		sed -i '/^\s*#SSH_SERVER/ s|#SSH_SERVER||' hook.${inventory_id}.yaml 
+	fi
+
 	declare -g linuxkit_bin=""
 	obtain_linuxkit_binary_cached # sets "${linuxkit_bin}"
 
