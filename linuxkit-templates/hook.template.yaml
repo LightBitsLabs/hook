@@ -238,6 +238,7 @@ services:
     - /dev:/dev
     - /proc:/proc
     - /etc/resolv.conf:/etc/resolv.conf
+
 #SSH_SERVER  - name: sshd
 #SSH_SERVER    image: linuxkit/sshd:v1.0.0
 #SSH_SERVER    binds.add:
@@ -337,7 +338,7 @@ files:
       ttyUSB2
 
 #SSH_SERVER  - path: root/.ssh/authorized_keys
-#SSH_SERVER    allowed_hosts_rsa_keys/authorized_keys
+#SSH_SERVER    source: allowed_hosts_rsa_keys/authorized_keys
 #SSH_SERVER    mode: "0600"
 #SSH_SERVER    optional: true
 

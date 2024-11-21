@@ -105,6 +105,7 @@ case "${first_param}" in
 		build_all_hook_linuxkit_containers
 		exit 0
 		;;
+
 esac
 
 # All other commands take the kernel/flavor ID as 2nd parameter; the default depends on host architecture.
@@ -139,12 +140,17 @@ case "${first_param}" in
 		linuxkit_build
 		;;
 
+	debug) # Build Hook proper, using the specified kernel in debug mode
+		unset LK_RUN     # ensure unset, lest the build might also run the image
+		linuxkit_build "debug"
+		;;
+
 	build-run-qemu | run-qemu | qemu-run | run | qemu)
 		LK_RUN="qemu" linuxkit_build
 		;;
 
 	*)
-		log error "Unknown command: '${first_param}'; try build / run / kernel-build / kernel-config / linuxkit-containers / gha-matrix"
+		log error "Unknown command: '${first_param}'; try build / debug / run / kernel-build / kernel-config / linuxkit-containers / gha-matrix"
 		exit 1
 		;;
 esac

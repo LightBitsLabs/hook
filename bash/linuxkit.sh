@@ -84,6 +84,11 @@ function linuxkit_build() {
 	# Run envsubst on the template file, output to a new file; pass the envs and the arg string
 	env "${envsubst_envs[@]}" envsubst "${envsubst_arg_string}" < "linuxkit-templates/${kernel_info['TEMPLATE']}.template.yaml" > "hook.${inventory_id}.yaml"
 
+	if [[ "$1" == "debug" ]]; then
+		log info "Building hook in debug mode, enabling ssh"
+		sed -i '/^\s*#SSH_SERVER/ s|#SSH_SERVER||' hook.${inventory_id}.yaml 
+	fi
+
 	declare -g linuxkit_bin=""
 	obtain_linuxkit_binary_cached # sets "${linuxkit_bin}"
 
